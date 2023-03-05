@@ -1,2 +1,2 @@
 # flakes
-NixOS flakes configuration
+NixOS configuration

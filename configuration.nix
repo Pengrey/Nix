@@ -46,8 +46,11 @@
 
     # Setup Keyboard Layout
     layout = "pt";
-    xkbOptions = "no_dead_keys";
+    xkbOptions = "nodeadkeys";
   };
+  
+  # Configure console keymap
+  console.keyMap = "pt-latin1";
 
   # Exclude some gnome applications from default install
   environment.gnome.excludePackages = (with pkgs; [
@@ -74,9 +77,6 @@
  
   # Running gnome programs outside of gnome
   programs.dconf.enable = true;
-  
-  # Configure console keymap
-  console.keyMap = "pt-latin1";
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -112,23 +112,23 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     # System commands
-    exa			# ls replacement
-    wget		# File retriever
-    btop		# Rsource Monitor
-    bat			# cat replacement
+    exa			    # ls replacement
+    wget		    # File retriever
+    btop		    # Rsource Monitor
+    bat			    # cat replacement
     neofetch		# Shows system information
 
     # Window Manager Stuff
-    alacritty		# GPU Accelerated Terminal Emulator
-    ranger		# Terminal file manager
+    alacritty		        # GPU Accelerated Terminal Emulator
+    ranger		          # Terminal file manager
     gnome.gnome-tweaks	# Tweaks for gnome
   ];
   
   # NeoVim configuration
   programs.neovim = {
     enable = true;
-    defaultEditor = true;	# Set nvim as tyhe default editor using EDITOR env var
-    vimAlias = true; 		# Symlink vim to nvim
+    defaultEditor = true;	# Set nvim as the default editor using EDITOR env var
+    vimAlias = true; 		  # Symlink vim to nvim
   };
 
   # ZSH Configuration with ohMysZsh
@@ -160,6 +160,6 @@
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken.
-  system.stateVersion = "22.14.1";
+  system.stateVersion = "22.11";
 
 }

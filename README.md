@@ -1,2 +1,2 @@
-# flakes
+# Nix
 NixOS configuration

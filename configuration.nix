@@ -14,7 +14,6 @@
   boot.loader.grub.useOSProber = true;
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -37,6 +36,13 @@
     LC_TIME = "pt_PT.UTF-8";
   };
 
+  # Set fonts
+  fonts.fonts = with pkgs; [
+    roboto
+    cascadia-code
+  ];
+
+  environment.pathsToLink = [ "/libexec" ]; # for i3
   # Enable i3
   services.xserver = {
     enable = true;
@@ -55,16 +61,13 @@
       package = pkgs.i3-gaps;
       extraPackages = with pkgs; [
         dmenu #application launcher most people use
-        i3status # gives you the default i3 status bar
         i3lock #default i3 screen locker
-        i3blocks #if you are planning on using i3blocks over i3status
+	i3status
+	i3blocks
      ];
     };
   };
   
-  # Set fonts
-  fonts.fonts = with pkgs; [ roboto ];
-
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
   
@@ -78,6 +81,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox		# Internet browser
+      autorandr		# Auto select for display
       arandr		# xrandr gui
     ];
   };
@@ -93,10 +97,12 @@
     btop		    # Rsource Monitor
     bat			    # cat replacement
     neofetch		    # Shows system information
+    zathura		    # PDF viewer
 
     # Window Manager Stuff
     alacritty		        # GPU Accelerated Terminal Emulator
     lf				# Terminal file maneger writen in go
+    nm-tray			# Network manager tray GUI
   ];
  
   services.pipewire = {

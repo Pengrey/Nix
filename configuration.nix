@@ -37,57 +37,33 @@
     LC_TIME = "pt_PT.UTF-8";
   };
 
-  # Enable the Wayland windowing system
+  # Enable i3
   services.xserver = {
     enable = true;
-
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
 
     # Setup Keyboard Layout
     layout = "pt";
     xkbOptions = "nodeadkeys";
+
+    # i3 stuff
+    desktopManager.xterm.enable = false;
+   
+    displayManager.defaultSession = "none+i3";
+
+    windowManager.i3 = {
+      enable = true;
+      package = pkgs.i3-gaps;
+      extraPackages = with pkgs; [
+        dmenu #application launcher most people use
+        i3status # gives you the default i3 status bar
+        i3lock #default i3 screen locker
+        i3blocks #if you are planning on using i3blocks over i3status
+     ];
+    };
   };
   
-  # Configure console keymap
-  console.keyMap = "pt-latin1";
-
-  # Exclude some gnome applications from default install
-  environment.gnome.excludePackages = (with pkgs; [
-    gnome-photos
-    gnome-tour
-  ]) ++ (with pkgs.gnome; [
-    cheese	# webcam tool
-    gnome-music
-    gnome-terminal
-    gedit	# text editor
-    epiphany	# web browser
-    geary	# email reader
-    evince	# document viewer
-    gnome-characters
-    totem	# video player
-    tali	# poker game
-    iagno	# go game
-    hitori	# sodoku game
-    atomix	# puzzle game
-    yelp	# Help view
-    gnome-contacts
-    gnome-initial-setup
-  ]);
- 
-  # Running gnome programs outside of gnome
-  programs.dconf.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-  };
+  # Set fonts
+  fonts.fonts = with pkgs; [ roboto ];
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -102,7 +78,7 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox		# Internet browser
-      #nerdfonts	# Fonts with icons used by the system
+      arandr		# xrandr gui
     ];
   };
 
@@ -116,14 +92,19 @@
     wget		    # File retriever
     btop		    # Rsource Monitor
     bat			    # cat replacement
-    neofetch		# Shows system information
+    neofetch		    # Shows system information
 
     # Window Manager Stuff
     alacritty		        # GPU Accelerated Terminal Emulator
-    ranger		          # Terminal file manager
-    gnome.gnome-tweaks	# Tweaks for gnome
+    lf				# Terminal file maneger writen in go
   ];
-  
+ 
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    pulse.enable = true;
+  };
+
   # NeoVim configuration
   programs.neovim = {
     enable = true;

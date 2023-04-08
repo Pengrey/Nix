@@ -51,8 +51,19 @@
     layout = "pt";
     xkbOptions = "nodeadkeys";
 
+    # Resolutions 1920x1080
+    resolutions = [
+    		    {
+		      x = 1920;
+		      y = 1080;
+		    }
+		  ];
+
     # i3 stuff
-    desktopManager.xterm.enable = false;
+    desktopManager = {
+      xterm.enable = false;
+      wallpaper.mode = "fill";
+    };
    
     displayManager.defaultSession = "none+i3";
 
@@ -67,7 +78,7 @@
      ];
     };
   };
-  
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
   
@@ -81,7 +92,6 @@
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
       firefox		# Internet browser
-      autorandr		# Auto select for display
       arandr		# xrandr gui
     ];
   };

@@ -77,6 +77,12 @@
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
+  
+  # Enable bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
